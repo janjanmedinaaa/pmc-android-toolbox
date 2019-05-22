@@ -150,4 +150,28 @@ class LengthConverterTest {
         assertEquals("10.0", decimalFormat.format(lengthConverter.convertKmToMiles(16.1)))
         assertEquals("15.5", decimalFormat.format(lengthConverter.convertKmToMiles(24.9)))
     }
+
+    @Test
+    fun convertMetersToMiles() {
+        val decimalFormat = DecimalFormat("0.0")
+        assertEquals("0.2", decimalFormat.format(lengthConverter.convertMetersToMiles(321.869)))
+        assertEquals("11.4", decimalFormat.format(lengthConverter.convertMetersToMiles(18346.52)))
+        assertEquals("0.6", decimalFormat.format(lengthConverter.convertMetersToMiles(965.606)))
+    }
+
+    @Test
+    fun convertMetersToKm() {
+        val decimalFormat = DecimalFormat("0.0")
+        assertEquals("545.0", decimalFormat.format(lengthConverter.convertMetersToKm(545000.0)))
+        assertEquals("10.5", decimalFormat.format(lengthConverter.convertMetersToKm(10500.0)))
+        assertEquals("1.0", decimalFormat.format(lengthConverter.convertMetersToKm(965.606)))
+    }
+
+    @Test
+    fun convertMilesToMeters() {
+        val decimalFormat = DecimalFormat("0.0")
+        assertEquals("965.6", decimalFormat.format(lengthConverter.convertMilesToMeters(0.6)))
+        assertEquals("7242.0", decimalFormat.format(lengthConverter.convertMilesToMeters(4.5)))
+        assertEquals("16093.4", decimalFormat.format(lengthConverter.convertMilesToMeters(10.0)))
+    }
 }
