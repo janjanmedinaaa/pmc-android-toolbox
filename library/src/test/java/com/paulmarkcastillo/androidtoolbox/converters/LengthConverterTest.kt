@@ -153,25 +153,22 @@ class LengthConverterTest {
 
     @Test
     fun convertMetersToMiles() {
-        val decimalFormat = DecimalFormat("0.0")
-        assertEquals("0.2", decimalFormat.format(lengthConverter.convertMetersToMiles(321.869)))
-        assertEquals("11.4", decimalFormat.format(lengthConverter.convertMetersToMiles(18346.52)))
-        assertEquals("0.6", decimalFormat.format(lengthConverter.convertMetersToMiles(965.606)))
+        assertEquals(0.37282272, lengthConverter.convertMetersToMiles(600.0), 0.0)
+        assertEquals(0.5906133256, lengthConverter.convertMetersToMiles(950.50), 0.0)
+        assertEquals(3.106856, lengthConverter.convertMetersToMiles(5000.0), 0.0)
     }
 
     @Test
     fun convertMetersToKm() {
-        val decimalFormat = DecimalFormat("0.0")
-        assertEquals("545.0", decimalFormat.format(lengthConverter.convertMetersToKm(545000.0)))
-        assertEquals("10.5", decimalFormat.format(lengthConverter.convertMetersToKm(10500.0)))
-        assertEquals("1.0", decimalFormat.format(lengthConverter.convertMetersToKm(965.606)))
+        assertEquals(0.001, lengthConverter.convertMetersToKm(1.0), 0.0)
+        assertEquals(0.50057, lengthConverter.convertMetersToKm(500.57), 0.0)
+        assertEquals(1.0, lengthConverter.convertMetersToKm(1000.0), 0.0)
     }
 
     @Test
     fun convertMilesToMeters() {
-        val decimalFormat = DecimalFormat("0.0")
-        assertEquals("965.6", decimalFormat.format(lengthConverter.convertMilesToMeters(0.6)))
-        assertEquals("7242.0", decimalFormat.format(lengthConverter.convertMilesToMeters(4.5)))
-        assertEquals("16093.4", decimalFormat.format(lengthConverter.convertMilesToMeters(10.0)))
+        assertEquals(600.00000749568, lengthConverter.convertMilesToMeters(0.37282272), 0.0)
+        assertEquals(965.6064, lengthConverter.convertMilesToMeters(0.6), 0.0)
+        assertEquals(1609.344, lengthConverter.convertMilesToMeters(1.0), 0.0)
     }
 }

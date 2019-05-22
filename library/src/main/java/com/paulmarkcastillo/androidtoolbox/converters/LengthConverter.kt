@@ -29,14 +29,14 @@ class LengthConverter : BaseConverter() {
     }
 
     fun convertMetersToMiles(m: Double): Double {
-        return m * 0.000621371
+        return m * 0.0006213712
     }
 
     fun convertMetersToKm(m: Double): Double {
-        return m * 0.001
+        return m / 1000.0
     }
 
     fun convertMilesToMeters(mi: Double): Double {
-        return mi * 1609.34
+        return mi * 1609.344
     }
 }
