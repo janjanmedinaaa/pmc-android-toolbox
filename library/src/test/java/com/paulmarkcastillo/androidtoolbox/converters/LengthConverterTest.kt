@@ -150,4 +150,25 @@ class LengthConverterTest {
         assertEquals("10.0", decimalFormat.format(lengthConverter.convertKmToMiles(16.1)))
         assertEquals("15.5", decimalFormat.format(lengthConverter.convertKmToMiles(24.9)))
     }
+
+    @Test
+    fun convertMetersToMiles() {
+        assertEquals(0.37282272, lengthConverter.convertMetersToMiles(600.0), 0.0)
+        assertEquals(0.5906133256, lengthConverter.convertMetersToMiles(950.50), 0.0)
+        assertEquals(3.106856, lengthConverter.convertMetersToMiles(5000.0), 0.0)
+    }
+
+    @Test
+    fun convertMetersToKm() {
+        assertEquals(0.001, lengthConverter.convertMetersToKm(1.0), 0.0)
+        assertEquals(0.50057, lengthConverter.convertMetersToKm(500.57), 0.0)
+        assertEquals(1.0, lengthConverter.convertMetersToKm(1000.0), 0.0)
+    }
+
+    @Test
+    fun convertMilesToMeters() {
+        assertEquals(600.00000749568, lengthConverter.convertMilesToMeters(0.37282272), 0.0)
+        assertEquals(965.6064, lengthConverter.convertMilesToMeters(0.6), 0.0)
+        assertEquals(1609.344, lengthConverter.convertMilesToMeters(1.0), 0.0)
+    }
 }
