@@ -1,4 +1,4 @@
-package com.paulmarkcastillo.androidtoolbox.helpers.date
+package com.paulmarkcastillo.androidtoolbox.datetime
 
 import java.util.Calendar
 import java.util.TimeZone
