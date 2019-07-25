@@ -1,4 +1,4 @@
-package com.paulmarkcastillo.androidtoolbox.helpers.date
+package com.paulmarkcastillo.androidtoolbox.datetime
 
 import java.text.ParseException
 import java.text.SimpleDateFormat
