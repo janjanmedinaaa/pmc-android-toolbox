@@ -13,6 +13,7 @@ import com.paulmarkcastillo.androidtoolbox.converters.DisplayUnitConverter
 
 @SuppressLint("AppCompatCustomView")
 class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatButton(context, attrs) {
+    private val displayUnitConverter = DisplayUnitConverter()
     private lateinit var mainTextPaint: Paint
     private lateinit var subTextPaint: Paint
     private val strokeWidth = 2f
@@ -46,7 +47,12 @@ class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatButton(con
 
             roundedCorners = getBoolean(R.styleable.CustomButton_roundedCorners, true)
 
-            radius = getDimension(R.styleable.CustomButton_cornerRadius, radius)
+            radius = convertDpToPx(
+                getDimension(
+                    R.styleable.CustomButton_cornerRadius,
+                    convertPxToDp(radius)
+                )
+            )
 
             if (highlighted) {
                 setTextColor(secondaryColor)
@@ -83,7 +89,6 @@ class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatButton(con
             subTextPaint.isAntiAlias = true
         }
 
-        isAllCaps = false
         background = createShape()
     }
 
@@ -124,7 +129,10 @@ class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatButton(con
     }
 
     private fun convertDpToPx(dp: Float): Float {
-        val displayUnitConverter = DisplayUnitConverter()
         return displayUnitConverter.convertDpToPx(dp)
+    }
+
+    private fun convertPxToDp(px: Float): Float {
+        return displayUnitConverter.convertPxToDp(px)
     }
 }
