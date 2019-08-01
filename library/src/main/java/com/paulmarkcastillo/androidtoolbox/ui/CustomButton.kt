@@ -46,7 +46,7 @@ class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatButton(con
 
             roundedCorners = getBoolean(R.styleable.CustomButton_roundedCorners, true)
 
-            radius = getDimension(R.styleable.CustomButton_cornerRadius, radius)
+            radius = getDimension(R.styleable.CustomButton_cornerRadius, convertDpToPx(radius))
 
             if (highlighted) {
                 setTextColor(secondaryColor)
@@ -56,15 +56,17 @@ class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatButton(con
 
             subText = getString(R.styleable.CustomButton_subText)
 
-            subTextColor = getColor(
-                R.styleable.CustomButton_subTextColor,
-                currentTextColor
-            )
+            subTextColor = getColor(R.styleable.CustomButton_subTextColor, currentTextColor)
 
-            subTextSize = getDimension(
-                R.styleable.CustomButton_subTextSize,
-                (textSize * .72).toFloat()
-            )
+            subTextSize =
+                getDimension(R.styleable.CustomButton_subTextSize, (textSize * .72).toFloat())
+
+
+        }
+
+        context.obtainStyledAttributes(attrs, intArrayOf(android.R.attr.textAllCaps)).apply {
+            isAllCaps = getBoolean(0, false)
+            recycle()
         }
 
         if (!subText.isNullOrEmpty()) {
@@ -82,8 +84,6 @@ class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatButton(con
             subTextPaint.textAlign = Paint.Align.CENTER
             subTextPaint.isAntiAlias = true
         }
-
-        isAllCaps = false
         background = createShape()
     }
 
@@ -113,7 +113,7 @@ class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatButton(con
         val gradientDrawable = GradientDrawable()
         gradientDrawable.shape = GradientDrawable.RECTANGLE
         if (roundedCorners) {
-            gradientDrawable.cornerRadius = convertDpToPx(radius)
+            gradientDrawable.cornerRadius = radius
         }
         if (highlighted) {
             gradientDrawable.setColor(primaryColor)
