@@ -13,7 +13,6 @@ import com.paulmarkcastillo.androidtoolbox.converters.DisplayUnitConverter
 
 @SuppressLint("AppCompatCustomView")
 class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatButton(context, attrs) {
-    private val displayUnitConverter = DisplayUnitConverter()
     private lateinit var mainTextPaint: Paint
     private lateinit var subTextPaint: Paint
     private val strokeWidth = 2f
@@ -47,12 +46,7 @@ class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatButton(con
 
             roundedCorners = getBoolean(R.styleable.CustomButton_roundedCorners, true)
 
-            radius = convertDpToPx(
-                getDimension(
-                    R.styleable.CustomButton_cornerRadius,
-                    convertPxToDp(radius)
-                )
-            )
+            radius = getDimension(R.styleable.CustomButton_cornerRadius, convertDpToPx(radius))
 
             if (highlighted) {
                 setTextColor(secondaryColor)
@@ -62,15 +56,17 @@ class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatButton(con
 
             subText = getString(R.styleable.CustomButton_subText)
 
-            subTextColor = getColor(
-                R.styleable.CustomButton_subTextColor,
-                currentTextColor
-            )
+            subTextColor = getColor(R.styleable.CustomButton_subTextColor, currentTextColor)
 
-            subTextSize = getDimension(
-                R.styleable.CustomButton_subTextSize,
-                (textSize * .72).toFloat()
-            )
+            subTextSize =
+                getDimension(R.styleable.CustomButton_subTextSize, (textSize * .72).toFloat())
+
+
+        }
+
+        context.obtainStyledAttributes(attrs, intArrayOf(android.R.attr.textAllCaps)).apply {
+            isAllCaps = getBoolean(0, false)
+            recycle()
         }
 
         if (!subText.isNullOrEmpty()) {
@@ -88,7 +84,6 @@ class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatButton(con
             subTextPaint.textAlign = Paint.Align.CENTER
             subTextPaint.isAntiAlias = true
         }
-
         background = createShape()
     }
 
@@ -118,7 +113,7 @@ class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatButton(con
         val gradientDrawable = GradientDrawable()
         gradientDrawable.shape = GradientDrawable.RECTANGLE
         if (roundedCorners) {
-            gradientDrawable.cornerRadius = convertDpToPx(radius)
+            gradientDrawable.cornerRadius = radius
         }
         if (highlighted) {
             gradientDrawable.setColor(primaryColor)
@@ -129,10 +124,7 @@ class CustomButton(context: Context, attrs: AttributeSet?) : AppCompatButton(con
     }
 
     private fun convertDpToPx(dp: Float): Float {
+        val displayUnitConverter = DisplayUnitConverter()
         return displayUnitConverter.convertDpToPx(dp)
-    }
-
-    private fun convertPxToDp(px: Float): Float {
-        return displayUnitConverter.convertPxToDp(px)
     }
 }
