@@ -16,7 +16,7 @@ class EmailValidator : BaseValidator() {
     private fun isEmailValidUsingValidator(string: String?): Boolean {
         if (string.isNullOrBlank()) return false
         if (!EMAIL_PATTERN.matcher(string).matches()) return false
-        val range = IntRange(0, string.indexOf('@'))
+        val range = IntRange(0, string.indexOf('@').dec())
         val localString = string.slice(range)
         if (localString.length > 64) return false
         return true
