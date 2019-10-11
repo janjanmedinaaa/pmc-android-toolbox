@@ -13,9 +13,13 @@ open class InternetChecker {
     open fun hasInternetAccess(callback: InternetAccessCallback) {
         internetCheckJob.launch {
             callback.onInternetAccessResult(checkInternetAccess())
-        }.invokeOnCompletion {
-            internetCheckJob.cancel()
         }
+    }
+
+    @ExperimentalCoroutinesApi
+    fun cancelChecking() {
+        if (internetCheckJob.isActive) internetCheckJob.cancel()
+
     }
 
     private suspend fun checkInternetAccess(): Boolean {
