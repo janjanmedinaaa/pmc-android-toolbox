@@ -11,26 +11,19 @@ open class InternetChecker {
 
     open fun hasInternetAccess(callback: InternetAccessCallback) {
         internetCheckJob = GlobalScope.launch {
-            withContext(Dispatchers.Main) {
-                callback.onInternetAccessResult(checkInternetAccess().await())
-            }
-        }
-    }
-
-    fun cancelChecking() {
-        if (::internetCheckJob.isInitialized && internetCheckJob.isActive) {
+            callback.onInternetAccessResult(checkInternetAccess())
             internetCheckJob.cancel()
         }
     }
 
-    private fun checkInternetAccess(): Deferred<Boolean> {
+    private suspend fun checkInternetAccess(): Boolean {
         return checkInternetAccess("8.8.8.8")
     }
 
-    private fun checkInternetAccess(dns: String): Deferred<Boolean> {
+    private suspend fun checkInternetAccess(dns: String): Boolean {
         val socket = Socket()
 
-        return GlobalScope.async {
+        return withContext(Dispatchers.IO) {
             try {
                 val googleDns = dns
                 val dnsPort = 53
