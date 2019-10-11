@@ -9,10 +9,12 @@ import java.net.Socket
 open class InternetChecker {
     private var internetCheckJob = CoroutineScope(Dispatchers.IO)
 
+    @ExperimentalCoroutinesApi
     open fun hasInternetAccess(callback: InternetAccessCallback) {
         internetCheckJob.launch {
             callback.onInternetAccessResult(checkInternetAccess())
-        }.cancel()
+            cancel()
+        }
     }
 
     private suspend fun checkInternetAccess(): Boolean {
