@@ -36,7 +36,7 @@ open class InternetChecker {
                 val dnsPort = 53
                 val timeout = 5000
                 val socketAddress = InetSocketAddress(googleDns, dnsPort)
-                TrafficStats.setThreadStatsTag(dnsPort)
+                TrafficStats.tagSocket(socket)
                 socket.connect(socketAddress, timeout)
                 true
             } catch (e: IOException) {
