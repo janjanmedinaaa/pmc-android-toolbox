@@ -13,7 +13,8 @@ open class InternetChecker {
     open fun hasInternetAccess(callback: InternetAccessCallback) {
         internetCheckJob.launch {
             callback.onInternetAccessResult(checkInternetAccess())
-            cancel()
+        }.invokeOnCompletion {
+            internetCheckJob.cancel()
         }
     }
 
