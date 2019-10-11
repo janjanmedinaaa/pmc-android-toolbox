@@ -11,7 +11,9 @@ open class InternetChecker {
 
     open fun hasInternetAccess(callback: InternetAccessCallback) {
         internetCheckJob = GlobalScope.launch {
-            callback.onInternetAccessResult(checkInternetAccess())
+            withContext(Dispatchers.IO) {
+                callback.onInternetAccessResult(checkInternetAccess())
+            }
         }
     }
 
