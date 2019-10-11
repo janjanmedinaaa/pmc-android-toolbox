@@ -1,5 +1,6 @@
 package com.paulmarkcastillo.androidtoolbox.checkers
 
+import android.net.TrafficStats
 import kotlinx.coroutines.*
 import java.io.IOException
 import java.net.InetSocketAddress
@@ -27,19 +28,22 @@ open class InternetChecker {
     }
 
     private fun checkInternetAccess(dns: String): Deferred<Boolean> {
+        val socket = Socket()
+
         return GlobalScope.async {
             try {
                 val googleDns = dns
                 val dnsPort = 53
                 val timeout = 5000
-                val socket = Socket()
                 val socketAddress = InetSocketAddress(googleDns, dnsPort)
+                TrafficStats.setThreadStatsTag(dnsPort)
                 socket.connect(socketAddress, timeout)
-                socket.close()
                 true
             } catch (e: IOException) {
                 e.printStackTrace()
                 false
+            } finally {
+                socket.close()
             }
         }
     }
