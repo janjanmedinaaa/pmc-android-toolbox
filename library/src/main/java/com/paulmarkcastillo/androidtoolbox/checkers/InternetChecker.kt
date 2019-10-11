@@ -16,7 +16,9 @@ open class InternetChecker {
     }
 
     fun cancelChecking() {
-        if (internetCheckJob.isActive) internetCheckJob.cancel()
+        if (::internetCheckJob.isInitialized && internetCheckJob.isActive) {
+            internetCheckJob.cancel()
+        }
     }
 
     private suspend fun checkInternetAccess(): Boolean {
