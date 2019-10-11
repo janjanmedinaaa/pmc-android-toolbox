@@ -7,13 +7,12 @@ import java.net.InetSocketAddress
 import java.net.Socket
 
 open class InternetChecker {
-    private lateinit var internetCheckJob: Job
+    private var internetCheckJob = CoroutineScope(Dispatchers.IO)
 
     open fun hasInternetAccess(callback: InternetAccessCallback) {
-        internetCheckJob = GlobalScope.launch {
+        internetCheckJob.launch {
             callback.onInternetAccessResult(checkInternetAccess())
-            internetCheckJob.cancel()
-        }
+        }.cancel()
     }
 
     private suspend fun checkInternetAccess(): Boolean {
